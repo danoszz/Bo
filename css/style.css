@@ -376,6 +376,10 @@ body {
   background-color: white;
   color: #120029;
 }
+.input--container #start_button:focus {
+  outline: none;
+}
+
 .input--container #start_button:hover img {
   fill: #DB4437;
 }
