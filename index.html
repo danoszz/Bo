@@ -1,136 +1,123 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Bo + SpeechRecognition Web API</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bo | Talkin AI Bot</title>
+  <meta name="description" content="Bo, a talking AI bot" />
+  <meta name="keywords" content="bo, AI bot, devign, development, design, web design, daan van der zwaag" />
+  <meta name="author" content="Daan van der Zwaag" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <div class="topbar--container">
-<!--  <div class="topbar--logo"></div> -->
- <div class="topbar--progress">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  </div>
-</div>
-<div class="bo--container">
-  <div class="bo--speech-bars">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="bo--element">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="bo--speech-bars">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<div class="output--container">
-  <textarea id="outputBo">“Wat voor werk zou je graag willen doen?”</textarea>
-</div>
+	<div class="topbar--container">
+		<div class="topbar--progress">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div class="bo--container">
+		<div class="bo--speech-bars">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<div class="bo--element">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<div class="bo--speech-bars">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div class="output--container">
+		<textarea id="outputBo">“Wat voor werk zou je graag willen doen?”</textarea>
+	</div>
 
-<div class="input--container">
-  <div class="output--spans">
-    <span id="final_span" class="final"></span>
-  <span id="interim_span" class="interim"></span>
-  </div>
-  
-  <button id="start_button" onclick="startButton(event)">
+	<div class="input--container">
+		<div class="output--spans">
+			<span id="final_span" class="final"></span>
+			<span id="interim_span" class="interim"></span>
+		</div>
+
+		<button id="start_button" onclick="startButton(event)">
     <img id="start_img" src="https://dvdz.design/school/bo/img/mic.svg" alt="Start"></button>
-</div>
-<div id="info">
-  <p id="info_start">Klik op de microfoon en begin met praten.</p>
-  <p id="info_speak_now">Praat nu</p>
-  <p id="info_no_speech">Geen spraak herkend, misschien moeten de 
-    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+	</div>
+	<div id="info">
+		<p id="info_start">Klik op de microfoon en begin met praten.</p>
+		<p id="info_speak_now">Praat nu</p>
+		<p id="info_no_speech">Geen spraak herkend, misschien moeten de
+			<a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
       microfoon instellingen</a>aangepast worden.</p>
-  <p id="info_no_microphone" style="display:none">
-    Geen microfoon gevonden. Check of er een microfoon is geinstalleerd en dat
-    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+		<p id="info_no_microphone" style="display:none">
+			Geen microfoon gevonden. Check of er een microfoon is geinstalleerd en dat
+			<a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
     de microfoon instellingen</a>goed zijn ingesteld.</p>
-  <p id="info_allow">Klik op "Sta toe" knop boven aan om de microfoon aan te zetten.</p>
-  <p id="info_denied">Toegang tot de microfoon was geweigerd</p>
-  <p id="info_blocked">Toestemming voor het gebruik van de microfoon is geweigerd. Om te veranderen ga naar chrome://settings/contentExceptions#media-stream</p>
-  <p id="info_upgrade">Web Speech API wordt niet ondersteund in deze browser.
-     Upgrade to <a href="//www.google.com/chrome">Chrome</a>
-     version 25 of hoger.</p>
-</div>
-
-
-
-<div class="container--settings">
-  
-
-  
-  <div class="settings--speechRec">
-    <label>Choose language</label>
-    <select id="select_language" onchange="updateCountry()"></select>
-    &nbsp;&nbsp;
-    <select id="select_dialect"></select>
-  </div>
-  <div class="settings--voice">
-      <label>Choose voice</label>
-      <select id="voices"></select>
-        <div class="col s6">
-        <label>Rate</label>
-        <p class="range-field">
-          <input type="range" id="rate" min="1" max="100" value="10" />
-        </p>
-      </div>
-      <div class="col s6">
-        <label>Pitch</label>
-        <p class="range-field">
-          <input type="range" id="pitch" min="0" max="2" value="1" />
-        </p>
-      </div>
-      <div class="col s12">
-        <p>N.B. Rate and Pitch only work with native voice.</p>
-      </div>
-  </div>
-
-</div>
-
-<div class="button--text button--open__settings">
-  <p>Settings</p>
-</div>
-<div class="button--text button--start__bo">
-  <p id="speak">Start</p>
-</div>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-
-    <script src="js/index.js"></script>
-
+		<p id="info_allow">Klik op "Sta toe" knop boven aan om de microfoon aan te zetten.</p>
+		<p id="info_denied">Toegang tot de microfoon was geweigerd</p>
+		<p id="info_blocked">Toestemming voor het gebruik van de microfoon is geweigerd. Om te veranderen ga naar chrome://settings/contentExceptions#media-stream</p>
+		<p id="info_upgrade">Web Speech API wordt niet ondersteund in deze browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a> version 25 of hoger.</p>
+	</div>
+	<div class="container--settings">
+		<div class="settings--speechRec">
+			<label>Choose language</label>
+			<select id="select_language" onchange="updateCountry()"></select> &nbsp;&nbsp;
+			<select id="select_dialect"></select>
+		</div>
+		<div class="settings--voice">
+			<label>Choose voice</label>
+			<select id="voices"></select>
+			<div class="col s6">
+				<label>Rate</label>
+				<p class="range-field">
+					<input type="range" id="rate" min="1" max="100" value="10" />
+				</p>
+			</div>
+			<div class="col s6">
+				<label>Pitch</label>
+				<p class="range-field">
+					<input type="range" id="pitch" min="0" max="2" value="1" />
+				</p>
+			</div>
+			<div class="col s12">
+				<p>N.B. Rate and Pitch only work with native voice.</p>
+			</div>
+		</div>
+	</div>
+	<div class="button--text button--open__settings">
+		<p>Settings</p>
+	</div>
+	<div class="button--text button--start__bo">
+		<p id="speak">Start</p>
+	</div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	<script src="js/index.js"></script>
 </body>
+
 </html>
