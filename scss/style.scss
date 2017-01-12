@@ -1,0 +1,393 @@
+$color-purple: #120029;
+$color-red: #DB4437;
+$color-green: #18DD00;
+$color-blue: #2FB5F3;
+$size-bo: 25vh;
+$spin-time: 5.5s;
+$spin-offset: 2%;
+$ani-delay: 125ms;
+$ani-bars: 11;
+$max-width_container: 600px;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-purple;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  font-family: "Roboto", 'Helvetica Neue', sans-serif;
+}
+.topbar--container,
+.bo-container,
+.output--container,
+.input--container {
+  width: 80%;
+  max-width: $max-width_container;
+}
+.topbar--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  .topbar--logo {
+    width: 100px;
+  }
+  .topbar--progress {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    &:after {
+      content: '';
+      width: 100%;
+      height: 1px;
+      z-index: 2;
+      position: absolute;
+      background-color: white;
+    }
+    span {
+    //  position: relative;
+      background-color: white;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      z-index: 3;
+      &:nth-child(1){
+        background-color: $color-blue;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:after {
+          position: absolute;
+          content: '';
+          border-radius: 50%;
+          border: 2px solid $color-blue;
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
+  }
+}
+.bo--container {
+  width: 80%;
+  max-width: $max-width_container * 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  .bo--element {
+    //  background-color: rgba($color-red, 0.2);
+    // border: 5px solid $color-red;
+    height: $size-bo;
+    width: $size-bo;
+    border-radius: 50%;
+    display: flex;
+    position: relative;
+   
+    span {
+      transition: all 600ms ease-in-out;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      border-radius: 50%;
+      border: 5px solid white;
+      mix-blend-mode: screen;
+    }
+    span:nth-child(1) {
+      background-color: rgba($color-green, 0.2);
+      border-color: $color-green;
+      z-index: 3;
+     
+    }
+    span:nth-child(2) {
+      background-color: rgba($color-red, 0.2);
+      border-color: $color-red;
+      bottom: $spin-offset * 8;
+      z-index: 2;
+    }
+    span:nth-child(3) {
+      background-color: rgba($color-blue, 0.2);
+      border-color: $color-blue;
+      top: $spin-offset * 8;
+      z-index: 1;
+    }
+     &.active {
+       span {
+         border-radius: 115% 140% 145% 110%/125% 140% 110% 125%;
+       }
+      span:nth-child(1) {
+         animation: spin1 $spin-time linear infinite;
+      }
+        span:nth-child(2) {
+         animation: spin1 $spin-time linear infinite;
+          bottom: $spin-offset;
+      }
+        span:nth-child(3) {
+         animation: spin1 $spin-time linear infinite;
+          top: $spin-offset;
+      }
+      
+    }
+  
+  }
+  .bo--speech-bars {
+    width: 180px;
+    height: $size-bo / 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    span {
+      height: 100%;
+      background-color: white;
+      width: 2px;
+      transition: all 300ms ease-in;
+      animation: speechBars ($ani-delay * $ani-bars) ease-in infinite both;
+    }
+    // Animation delay loops
+    @for $i from 0 to ($ani-bars + 1){
+      span:nth-child(#{$i}) {
+        animation-delay: $ani-delay + ($i * ($ani-delay));
+      }
+    }
+    span:nth-child(1) {
+      height: 10%;
+    }
+    span:nth-child(2) {
+      height: 25%;
+    }
+    span:nth-child(3) {
+      height: 40%;
+    }
+    span:nth-child(4) {
+      height: 65%;
+    }
+    span:nth-child(5) {
+      height: 80%;
+    }
+    span:nth-child(6) {
+      height: 100%;
+    }
+    span:nth-child(7) {
+      height: 80%;
+    }
+    span:nth-child(8) {
+      height: 65%;
+    }
+    span:nth-child(9) {
+      height: 40%;
+    }
+    span:nth-child(10) {
+      height: 25%;
+    }
+    span:nth-child(11) {
+      height: 10%;
+    }
+    
+    &:nth-child(1) {
+      transform: rotate(-180deg);
+    }
+    &.active {
+      span {
+        animation: speechBars_active ($ani-delay * $ani-bars) ease-in infinite both;
+      }
+      @for $i from 0 to ($ani-bars + 1){
+      span:nth-child(#{$i}) {
+        animation-delay: $ani-delay + ($i * ($ani-delay));
+      }
+    }
+    }
+
+    // Improve SCSS loop instead of all nth-childs
+    //     $bars-up: 11;
+    //     @for $i from 1 through $bars-up {
+    //       span:nth-child(n+#{$i}) {
+    //         height: ((80 / $bars-up) * $i) * 1%;
+    //       }
+    //     }
+  }
+}
+.input--container {
+  height: 50px;
+
+  border: 1px solid white;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  input {
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    color: white;
+    font-size: 0.9em;
+  }
+
+  .output--spans{
+        width: 80%;
+    padding-left: 25px;
+    line-height: 50px;
+  }
+  input {
+
+    &:focus {
+      outline: none;
+    }
+  }
+  
+
+  input[name="inputUser"]::-input-placeholder {
+  opacity: 0.5;
+    font-size: 0.9em;
+   
+  }
+
+  #start_button {
+    width: 20%;
+    color: white;
+    border: initial;
+    border-left: 1px solid white;
+    background-color: rgba(white, 0.2);
+    border-radius: 0 50px 50px 0;
+    font-weight: 200;
+    font-size: 1em;
+    transition: all 100ms ease-in-out;
+    img {
+      height: 25px;
+      padding-top: 2px;
+    }
+    &:hover {
+      img {
+        fill: $color-red;
+      }
+      background-color: white;
+      color: $color-purple;
+    }
+  }
+}
+.output--container {
+  text-align: center;
+  
+  #outputBo {
+        background-color: transparent;
+    resize: none;
+    color: white;
+    border: none;
+    display: inline-block;
+    font-size: 2em;
+    text-align: center;
+    width: 100%;
+    letter-spacing: 1px;
+    font-weight: 200;
+    padding: 0;
+    margin: 0;
+    line-height: 1.25;
+     &:focus {
+      outline: none;
+    }
+  }
+}
+
+.container--settings {
+  display: none;
+  position: absolute;
+  background-color: white;
+  color: black;
+  left: 0;
+  bottom: 0;
+  padding: 50px;
+}
+
+.button--text {
+  position: absolute;
+  bottom: 25px;
+  //right: 25px;
+  cursor: pointer;
+  font-weight: 200;
+  border: 1px solid white;
+  padding: 0px 15px;
+  margin: 0;
+  transition: all 125ms ease-in;
+  &:hover {
+    background-color: rgba(white, 0.2);
+  }
+  &.button--start__bo {
+    right: 25px;
+  }
+  &.button--open__settings {
+    left: 25px;
+  }
+}
+
+//Keyframes
+
+@keyframes speechBars {
+  0% {
+    height: 90%;
+  }
+  50% {
+    height: 66%;
+  }
+  100% {
+    height: 90%;
+  }
+}
+
+@keyframes speechBars_active {
+  0% {
+    height: inherit;
+  }
+  50% {
+    height: 33%;
+  }
+  100% {
+    height: inherit;
+  }
+}
+
+@keyframes spin1 {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: rotate(72deg);
+  }
+  100% {
+    transform: rotate(-288deg);
+  }
+}
+
+@keyframes spin3 {
+  0% {
+    transform: rotate(-144deg);
+  }
+  100% {
+    transform: rotate(216deg);
+  }
+}
+
+@keyframes spin4 {
+  0% {
+    transform: rotate(216deg);
+  }
+  100% {
+    transform: rotate(-144deg);
+  }
+}
